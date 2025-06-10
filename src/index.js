@@ -4,12 +4,13 @@ const app = express();
 const events=[{date:'2025-03-01',title:'test event'}];
 
 app.get('/calendar/events', (req, res) => {
-  const date = new Date()
-  date.setTime(Date.parse(req.query.date));
+  const queryDate = new Date()
+  queryDate.setTime(Date.parse(req.query.date));
+  console.log(queryDate.toDateString())
   res.json(events.filter((event) => {
     const eventDate = new Date()
     eventDate.setTime(Date.parse(event.date+"T10:01"));
-    return eventDate.toDateString() == date.toDateString()
+    return eventDate.toDateString() == queryDate.toDateString()
   }));
 })
 
